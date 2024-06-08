@@ -2,9 +2,9 @@
 
 This Python script generates a QR code using the AIHorde API. It allows you to input a URL and a prompt for generating a scannable QR code image.
 
-![QR Image](/example-1.webp?raw=true "https://projectkorra.net/")
-`Prompt:` *a hedge maze, realistic shaded lighting, trending on artstation*\
-(https://projectkorra.net/)
+![QR Image](/example-2.webp?raw=true "https://discord.dreamdiffusion.net/")
+`Prompt:` *stars, nebula, space, high quality, detailed*\
+(https://discord.dreamdiffusion.net/)
 
 ## Prerequisites
 
