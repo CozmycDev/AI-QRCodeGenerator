@@ -1,19 +1,23 @@
-# horde_api.py
 import random
 import time
 import requests
+from PIL import Image
 
 CLIENT_AGENT: str = "AI-QRCodeGenerator"
 HORDE_URL: str = "https://aihorde.net/api"
 HORDE_KEY: str = "0000000000"
 
-IMAGE_MODEL: str = "AlbedoBase XL (SDXL)"
+MODEL_OPTIONS: set = {
+    'SDXL 1.0', 'AlbedoBase XL (SDXL)', 'Fustercluck', 'ICBINP XL', 'DreamShaper XL', 'Juggernaut XL',
+}
+
 STEPS: int = 30
-GUIDANCE_SCALE: float = 6.0
+SAMPLER: str = "k_euler"
+GUIDANCE_SCALE: float = 5.5
 WIDTH: int = 1024
 HEIGHT: int = 1024
 CLIP_SKIP: int = 2
-KARRAS: bool = False
+KARRAS: bool = True
 
 
 def make_headers() -> dict:
@@ -63,11 +67,11 @@ def check_status(task_id, stop_flag) -> str:
     return get_image(final_status)
 
 
-def make_payload(prompt: str, url: str) -> dict:
+def make_payload(prompt: str, url: str, model: str) -> dict:
     return {
         "prompt": prompt,
         "params": {
-            "sampler_name": "k_dpmpp_2m",
+            "sampler_name": SAMPLER,
             "toggles": [1, 4],
             "cfg_scale": GUIDANCE_SCALE,
             "seed": generate_seed(),
@@ -88,7 +92,22 @@ def make_payload(prompt: str, url: str) -> dict:
         "censor_nsfw": False,
         "workers": [],
         "worker_blacklist": False,
-        "models": [IMAGE_MODEL],
+        "models": [model],
         "r2": True,
         "shared": True
     }
+
+
+def download_image(img_url: str, file_path: str) -> None:
+    response = requests.get(img_url)
+    if response.status_code == 200:
+        with open(file_path, 'wb') as file:
+            file.write(response.content)
+    else:
+        raise Exception(f"Failed to download image. Status code: {response.status_code}")
+
+
+def convert_to_png(file_path: str) -> None:
+    img = Image.open(file_path)
+    png_path = file_path.rsplit('.', 1)[0] + '.png'
+    img.save(png_path, format='PNG')
