@@ -12,8 +12,8 @@ MODEL_OPTIONS: set = {
 }
 
 STEPS: int = 30
-SAMPLER: str = "k_euler"
-GUIDANCE_SCALE: float = 5.5
+SAMPLER: str = "k_dpmpp_sde"
+GUIDANCE_SCALE: float = 7.5
 WIDTH: int = 1024
 HEIGHT: int = 1024
 CLIP_SKIP: int = 2
@@ -59,7 +59,7 @@ def check_status(task_id, stop_flag) -> str:
             break
         time.sleep(1)
     else:
-        return None
+        return ""
 
     final_status = make_request(f'{HORDE_URL}/v2/generate/status/{task_id}')
     print(final_status)
