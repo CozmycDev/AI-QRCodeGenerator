@@ -1,3 +1,7 @@
+[![GitHub Pre-Release](https://img.shields.io/github/release-pre/CozmycDev/AI-QRCodeGenerator.svg)](https://github.com/CozmycDev/AI-QRCodeGenerator/releases)
+[![Github All Releases](https://img.shields.io/github/downloads/CozmycDev/AI-QRCodeGenerator/total.svg)](https://github.com/CozmycDev/AI-QRCodeGenerator/releases)
+![Size](https://img.shields.io/github/repo-size/CozmycDev/AI-QRCodeGenerator.svg)
+
 # QR Code Generator
 
 This Python script generates a QR code using the AIHorde API. It allows you to input a URL and a prompt for generating a scannable QR code image.
